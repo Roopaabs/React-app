@@ -14,14 +14,14 @@ executors:
 jobs:
   build:
     executor: node-executor
-  steps:
-    - checkout
-    - node/install-packages:
+    steps:
+     - checkout
+     - node/install-packages:
         cache-key: 'yarn.lock'
-    - run:
+     - run:
         name: build react app
         command: yarn build
-    - persist_to_workspace:
+     - persist_to_workspace:
         root: .
         paths:
           - build
