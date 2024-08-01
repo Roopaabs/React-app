@@ -124,5 +124,5 @@ workflows:
             - build
       - deploy_to_ecs:
           requires:
-            build_and_push_docker_image
+            - build_and_push_docker_image
 
