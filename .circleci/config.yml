@@ -50,6 +50,7 @@ jobs:
           name: List contents after attaching workspace
           command: |
             echo "Listing contents after attaching workspace:"
+            ls -la /tmp
             ls -la /tmp/project
             ls -la /tmp/project/build
             ls -la /tmp/project/build/Dockerfile  # Verify Dockerfile exists
