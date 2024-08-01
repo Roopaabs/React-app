@@ -108,12 +108,12 @@ jobs:
             sudo apt-get update
             sudo apt-get install -y awscli jq
       - run:
-          name: Deploy to ECS Fargate
+          # name: Deploy to ECS Fargate
+          # command: |
+          #   - run:
+          name: Update ECS Service
           command: |
-            - run:
-    name: Update ECS Service
-    command: |
-      aws ecs update-service --cluster $ECS_CLUSTER --service $ECS_SERVICE --force-new-deployment --region $AWS_REGION
+            aws ecs update-service --cluster $ECS_CLUSTER --service $ECS_SERVICE --force-new-deployment --region $AWS_REGION
 
             
 
