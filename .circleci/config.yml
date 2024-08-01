@@ -91,6 +91,6 @@ workflows:
   build_and_docker_image:
     jobs:
       - build
-      - build_docker_image:
+      - build_and_push_docker_image:
           requires:
             - build
