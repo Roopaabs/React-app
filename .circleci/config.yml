@@ -52,6 +52,7 @@ jobs:
             echo "Listing contents after attaching workspace:"
             ls -la /tmp/project
             ls -la /tmp/project/build
+            ls -la /tmp/project/Dockerfile  # Verify Dockerfile exists
       - run:
           name: copy build from workspace
           command: cp -r /tmp/project/build* /tmp/temp_build/
