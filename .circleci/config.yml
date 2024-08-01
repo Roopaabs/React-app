@@ -51,7 +51,7 @@ jobs:
           at: ~/project/workspace
       - run:
           name: List contents of attached workspace
-          command: ls -la ~/project/workspace/
+          command: ls -la ~/project/workspace/build
       - run:
           name: copy build from workspace
           command: cp -r ~/project/workspace/build ./build
