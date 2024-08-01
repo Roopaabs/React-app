@@ -32,7 +32,7 @@ jobs:
       - persist_to_workspace:
           root: /tmp/project
           paths:
-            - build
+            - .
 
   build_docker_image:
     executor: node-executor
@@ -52,7 +52,7 @@ jobs:
             echo "Listing contents after attaching workspace:"
             ls -la /tmp
             ls -la /tmp/project
-            ls -la /tmp/project/build
+            ls -la /tmp/project/*
             ls -la /tmp/project/build/Dockerfile  # Verify Dockerfile exists
       - run:
           name: create one folder
