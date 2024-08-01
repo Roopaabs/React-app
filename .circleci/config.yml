@@ -54,6 +54,9 @@ jobs:
             ls -la /tmp/project/build
             ls -la /tmp/project/Dockerfile  # Verify Dockerfile exists
       - run:
+          name: create one folder
+          command: mkdir -p /tmp/temp_build
+      - run:
           name: copy build from workspace
           command: cp -r /tmp/project/build* /tmp/temp_build/
       - run:
