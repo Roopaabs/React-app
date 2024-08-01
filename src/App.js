@@ -15,7 +15,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React app and use docker and circleci
+          Learn React app and use docker and circleci and push docker image ecr and deploy docker image to ecs container
         </a>
       </header>
     </div>
