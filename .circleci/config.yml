@@ -26,8 +26,31 @@ jobs:
           paths:
             - build
 
+  build_docker_image:
+    executor: node-executor
+    steps: 
+      - setup_remote_docker:
+         version: 10.20.7
+         docker_layer_cache: true
+      - attach_workspace:
+          at: /workspace
+      - run:
+        name: copy build from workspace
+        command: cp -r /workspace/build ./build
+      - run:
+        name: build docker image
+        command: docker build -t $ECR_REPO_NAME:$IMAGE_TAG .
+    
+
+      
+
+    #654654612003.dkr.ecr.us-east-1.amazonaws.com/ecr_react_repo
+
 workflows:
   version: 2
-  build:
+  build_and_docker_image:
     jobs:
       - build
+      - build_docker_image:
+          requires:
+            - build
