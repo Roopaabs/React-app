@@ -12,6 +12,11 @@ executors:
       - image: circleci/node:16
     working_directory: /tmp/project
 
+  python-executor:
+    docker:
+      - image: circleci/python:3.8  # Use your base image
+    working_directory: /tmp/project
+
 jobs:
   build:
     executor: node-executor
@@ -36,7 +41,7 @@ jobs:
             - .
 
   build_and_push_docker_image:
-    executor: node-executor
+    executor: python-executor
     steps: 
       - setup_remote_docker:
           version: 20.10.7
