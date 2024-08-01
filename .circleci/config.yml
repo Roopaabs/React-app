@@ -46,7 +46,7 @@ jobs:
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
           at: /tmp/project
-       - run:
+      - run:
           name: List contents after attaching workspace
           command: |
             echo "Listing contents after attaching workspace:"
