@@ -61,6 +61,9 @@ jobs:
       - run:
           name: Copy build files to the current directory
           command: cp -r /tmp/temp_build/* ./build/
+      - store_artifacts: #will store the build yarn file inside this
+          path: ./build
+          destination: /build_artifacts
       - run:
           name: build docker image
           command: docker build -t $ECR_REPO_NAME:$IMAGE_TAG .
