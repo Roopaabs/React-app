@@ -32,9 +32,11 @@ jobs:
       - setup_remote_docker:
           version: 20.10.7
           docker_layer_cache: true
+      - run:
+          name: List contents of root directory
+          command: ls -la
       - attach_workspace:
           at: /workspace
-
       - run:
           name: List workspace directory
           command: ls -la /workspace
