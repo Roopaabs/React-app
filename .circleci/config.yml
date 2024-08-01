@@ -16,9 +16,12 @@ jobs:
     executor: node-executor
     steps:
       - checkout
-      - run: mkdir -p ~/project/workspace
       - run:
-          name: Create dummy build file 
+          name: Create workspace and build directories
+          command: |
+            mkdir -p ~/project/workspace/build
+      - run:
+          name: Create dummy build file
           command: echo "Hello, world!" > ~/project/workspace/build/dummy.txt
       - run:
           name: Install dependencies
