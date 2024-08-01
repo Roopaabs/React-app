@@ -110,7 +110,11 @@ jobs:
       - run:
           name: Deploy to ECS Fargate
           command: |
-            aws ecs update-service --cluster $ECS_CLUSTER --service $ECS_SERVICE --force-new-deployment
+            - run:
+    name: Update ECS Service
+    command: |
+      aws ecs update-service --cluster $ECS_CLUSTER --service $ECS_SERVICE --force-new-deployment --region $AWS_REGION
+
             
 
 
