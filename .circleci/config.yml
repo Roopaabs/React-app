@@ -35,13 +35,13 @@ jobs:
       - attach_workspace:
           at: /workspace
       - run:
-        name: copy build from workspace
-        command: cp -r /workspace/build ./build
+          name: copy build from workspace
+          command: cp -r /workspace/build ./build
       - run:
-        name: build docker image
-        command: docker build -t $ECR_REPO_NAME:$IMAGE_TAG .
+          name: build docker image
+          command: docker build -t $ECR_REPO_NAME:$IMAGE_TAG .
         #654654612003.dkr.ecr.us-east-1.amazonaws.com/ecr_react_repo
-        
+
 workflows:
   version: 2
   build_and_docker_image:
