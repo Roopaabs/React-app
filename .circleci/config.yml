@@ -30,8 +30,8 @@ jobs:
     executor: node-executor
     steps: 
       - setup_remote_docker:
-         version: 20.10.7
-         docker_layer_cache: true
+          version: 20.10.7
+          docker_layer_cache: true
       - attach_workspace:
           at: /workspace
       - run:
@@ -40,12 +40,8 @@ jobs:
       - run:
         name: build docker image
         command: docker build -t $ECR_REPO_NAME:$IMAGE_TAG .
-    
-
-      
-
-    #654654612003.dkr.ecr.us-east-1.amazonaws.com/ecr_react_repo
-
+        #654654612003.dkr.ecr.us-east-1.amazonaws.com/ecr_react_repo
+        
 workflows:
   version: 2
   build_and_docker_image:
