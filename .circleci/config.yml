@@ -51,16 +51,16 @@ jobs:
           command: |
             echo "Listing contents after attaching workspace:"
             ls -la /tmp/project
-            ls -la /tmp/project/Dockerfile  # Verify Dockerfile exists
-      # - run:
-      #     name: create one folder
-      #     command: mkdir -p /tmp/build
+            # ls -la /tmp/project/Dockerfile  # Verify Dockerfile exists
+      - run:
+          name: create one folder
+          command: mkdir -p /tmp/temp_build
       - run:
           name: copy build from workspace
-          command: cp -r /tmp/project/* ./build/
-      # - run:
-      #     name: Copy build files to the current directory
-      #     command: cp -r /tmp/temp_build/* ./build/
+          command: cp -r /tmp/project/build /tmp/temp_build/
+      - run:
+          name: Copy build files to the current directory
+          command: cp -r /tmp/temp_build/* ./build/
       - run:
           name: build docker image
           command: docker build -t $ECR_REPO_NAME:$IMAGE_TAG .
