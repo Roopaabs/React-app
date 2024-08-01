@@ -9,7 +9,7 @@ executors:
   node-executor:
     docker:
       - image: circleci/node:16
-    working_directory: /tmp
+    working_directory: /temp
 
 jobs:
   build:
@@ -40,10 +40,10 @@ jobs:
           command: ls -la
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
-          at: /tmp/workspace
+          at: /temp/workspace
       - run:
           name: copy build from workspace
-          command: cp -r /tmp/workspace/build ./build
+          command: cp -r /temp/workspace/build ./build
       - run:
           name: build docker image
           command: docker build -t $ECR_REPO_NAME:$IMAGE_TAG .
