@@ -65,7 +65,7 @@ jobs:
           name: build docker image
           command: docker build -t $ECR_REPO_NAME:$IMAGE_TAG .
         #654654612003.dkr.ecr.us-east-1.amazonaws.com/ecr_react_repo
-      - aws-ecs|login:
+      - aws-ecr/login:
           aws-access-key-id: $AWS_ACCESS_KEY_ID
           aws-secret-access-key: $AWS_SECRET_ACCESS_KEY
           aws-region: $AWS_REGION
