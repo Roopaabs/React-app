@@ -16,8 +16,10 @@ jobs:
     executor: node-executor
     steps:
       - checkout
-      - run: mkdir -p ~/project/workspace/build
-      - run: echo "Hello, world!" > ~/project/workspace/build
+      - run: mkdir -p ~/project/workspace
+      - run:
+          name: Create dummy build file 
+          command: echo "Hello, world!" > ~/project/workspace/build/dummy.txt
       - run:
           name: Install dependencies
           command: yarn install
