@@ -34,6 +34,13 @@ jobs:
           docker_layer_cache: true
       - attach_workspace:
           at: /workspace
+
+      - run:
+          name: List workspace directory
+          command: ls -la /workspace
+      - run:
+          name: List build directory
+          command: ls -la /workspace/build
       - run:
           name: copy build from workspace
           command: cp -r /workspace/build ./build
