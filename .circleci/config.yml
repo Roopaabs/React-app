@@ -22,18 +22,17 @@ jobs:
       - run:
           name: build react app
           command: yarn build
-
-      - run:
-          name: Create directory with permissions and list contents
-          command: |
-            mkdir -p -m 777 /tmp/project/workspace/build
-            echo "Checking contents before persisting:"
-            ls -la /tmp/project
-            ls -la /tmp/project/workspace
+      # - run:
+      #     name: Create directory with permissions and list contents
+      #     command: |
+      #       mkdir -p -m 777 /tmp/project/workspace/build
+      #       echo "Checking contents before persisting:"
+      #       ls -la /tmp/project
+      #       ls -la /tmp/project/workspace
       - persist_to_workspace:
           root: /tmp/project
           paths:
-            - workspace/build
+            - build
 
   build_docker_image:
     executor: node-executor
@@ -46,13 +45,16 @@ jobs:
           command: ls -la
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
-          at: /tmp/project/workspace
-      - run:
-          name: List contents of attached workspace
-          command: ls -la /tmp/project/workspace
+          at: /tmp/project
+       - run:
+          name: List contents after attaching workspace
+          command: |
+            echo "Listing contents after attaching workspace:"
+            ls -la /tmp/project
+            ls -la /tmp/project/build
       - run:
           name: copy build from workspace
-          command: cp -r /tmp/project/workspace/build ./build
+          command: cp -r /tmp/project/build ./build
       - run:
           name: build docker image
           command: docker build -t $ECR_REPO_NAME:$IMAGE_TAG .
