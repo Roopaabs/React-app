@@ -9,15 +9,15 @@ executors:
   node-executor:
     docker:
       - image: circleci/node:16
-    working_directory: /temp
+    working_directory: ~/project
 
 jobs:
   build:
     executor: node-executor
     steps:
       - checkout
-      - run: mkdir -p workspace
-      - run: echo "Hello, world!" > workspace/build
+      - run: mkdir -p ~/project/workspace
+      - run: echo "Hello, world!" > ~/project/workspace/build
       - run:
           name: Install dependencies
           command: yarn install
@@ -25,9 +25,9 @@ jobs:
           name: build react app
           command: yarn build
       - persist_to_workspace:
-          root: workspace
+          root: ~/project
           paths:
-            - build
+            - workspace/build
 
   build_docker_image:
     executor: node-executor
@@ -40,10 +40,10 @@ jobs:
           command: ls -la
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
-          at: /temp/workspace
+          at: ~/project/workspace
       - run:
           name: copy build from workspace
-          command: cp -r /temp/workspace/build ./build
+          command: cp -r ~/project/workspace/build ./build
       - run:
           name: build docker image
           command: docker build -t $ECR_REPO_NAME:$IMAGE_TAG .
