@@ -15,8 +15,9 @@ jobs:
     executor: node-executor
     steps:
       - checkout
-      - node/install-packages:
-          cache-key: 'yarn.lock'
+      - run:
+          name: Install dependencies
+          command: yarn install
       - run:
           name: build react app
           command: yarn build
