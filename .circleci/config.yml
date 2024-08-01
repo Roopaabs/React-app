@@ -39,16 +39,13 @@ jobs:
           name: List contents of root directory
           command: ls -la
       - attach_workspace:
-          at: /workspace
+          at: .
       - run:
           name: List workspace directory
-          command: ls -la /workspace
-      - run:
-          name: List build directory
-          command: ls -la /workspace/build
+          command: ls -la
       - run:
           name: copy build from workspace
-          command: cp -r /workspace/build ./build
+          command: cp -r ./build ./build
       - run:
           name: build docker image
           command: docker build -t $ECR_REPO_NAME:$IMAGE_TAG .
