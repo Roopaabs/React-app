@@ -96,6 +96,23 @@ jobs:
           path: ./build
           destination: /build_artifacts
 
+  deploy_to_ecs:
+    executor: node-executor
+    steps:
+      # - run:
+      #     name: deploy to ecs
+      #     command:
+      - run:
+          name: Install AWS CLI
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y awscli jq
+      - run:
+          name: Deploy to ECS Fargate
+          command: |
+            aws ecs update-service --cluster $ECS_CLUSTER --service $ECS_SERVICE --force-new-deployment
+            
+
 
 workflows:
   version: 2
