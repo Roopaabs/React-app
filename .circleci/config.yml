@@ -21,6 +21,9 @@ jobs:
       - run:
           name: build react app
           command: yarn build
+      - run:
+          name: List build directory
+          command: ls -la build
       - persist_to_workspace:
           root: .
           paths:
