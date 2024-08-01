@@ -34,7 +34,7 @@ jobs:
           paths:
             - .
 
-  build_docker_image:
+  build_and_push_docker_image:
     executor: node-executor
     steps: 
       - setup_remote_docker:
@@ -61,13 +61,30 @@ jobs:
       - run:
           name: Copy build files to the current directory
           command: cp -r /tmp/temp_build/* ./build/
-      - store_artifacts: #will store the build yarn file inside this
-          path: ./build
-          destination: /build_artifacts
       - run:
           name: build docker image
           command: docker build -t $ECR_REPO_NAME:$IMAGE_TAG .
         #654654612003.dkr.ecr.us-east-1.amazonaws.com/ecr_react_repo
+      - aws-ecs|login:
+          aws-access-key-id: $AWS_ACCESS_KEY_ID
+          aws-secret-access-key: $AWS_SECRET_ACCESS_KEY
+          aws-region: $AWS_REGION
+      - run:
+          name: ecr authorization login
+          command: |
+            aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+      - run:
+          name: tag docker image
+          command: |
+            docker tag $ECR_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO_NAME:$IMAGE_TAG
+      - run:
+          name: push docker image to ECR
+          command: |
+            docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO_NAME:$IMAGE_TAG
+      - store_artifacts: #will store the build yarn file inside this
+          path: ./build
+          destination: /build_artifacts
+
 
 workflows:
   version: 2
